@@ -116,6 +116,11 @@ model:
   device: "auto"    # "cuda" for GPU or "cpu"
 ```
 
+To mount directory with loaded weights you can change path in ```compose.yaml```:
+
+```yaml
+/path/to/your/weights:/data 
+```
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

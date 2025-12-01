@@ -28,6 +28,8 @@ class App:
             
         self._load_model()
 
+        self.output_path = self.cfg.get('output_path', 'data')
+
     def _load_config(self, path: str) -> dict:
         if not os.path.exists(path):
             logger.error(f"Configuration file not found at {path}!")
@@ -164,12 +166,14 @@ class App:
 
             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"ocr_result_{timestamp}.txt"
-            
-            with open(filename, "w", encoding="utf-8") as f:
+            os.makedirs(self.output_path, exist_ok=True)
+            output_file = os.path.join(self.output_path, filename)
+
+            with open(output_file, "w+", encoding="utf-8") as f:
                 f.write(result_text)
                 
-            log(f"Result saved to {filename}")
-            return filename, "\n".join(ui_logs)
+            log(f"Result saved to {output_file}")
+            return output_file, "\n".join(ui_logs)
 
         except Exception as e:
             log(f"Error: {str(e)}", logging.ERROR)
@@ -206,12 +210,11 @@ class App:
 
                     i_btn.click(self.process_image_ocr, [i_input], [i_out, i_log])
 
-        env_port = os.getenv("PORT") # load from env var
-        final_port = int(env_port) if env_port else self.cfg["server"]["port"]
+        env_port = int(os.getenv("PORT")) # load from env var
         
         demo.launch(
             server_name=self.cfg["server"]["host"],
-            server_port=final_port
+            server_port=env_port
         )
 
 if __name__ == "__main__":

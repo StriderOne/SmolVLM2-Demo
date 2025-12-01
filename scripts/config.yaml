@@ -1,7 +1,8 @@
 server:
   host: "0.0.0.0"
-  port: 7860
 
 model:
   id: "HuggingFaceTB/SmolVLM2-2.2B-Instruct"
   device: "auto"
+
+output_path: data

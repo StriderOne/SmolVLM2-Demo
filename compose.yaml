@@ -5,11 +5,11 @@ services:
     command: ["python", "scripts/app.py"]
     restart: unless-stopped
     ports:
-      - "7860:7860"
+      - "${APP_PORT:-7860}:${APP_PORT:-7860}"
     environment:
       - HF_HOME=/data
       - NVIDIA_ visible_DEVICES=all
-      - PORT=7860
+      - PORT=${APP_PORT:-7860}
     volumes:
       - ./.huggingface_cache:/data 
       - .:/app

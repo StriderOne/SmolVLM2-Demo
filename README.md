@@ -63,6 +63,8 @@ To run this project locally with GPU acceleration, ensure you have the following
 * **NVIDIA Container Toolkit** (Required to pass the GPU to the container)
 * **NVIDIA Drivers** supporting CUDA 12.8
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Quick start
 
 Follow these simple steps to get a local copy up and running. This template relies on Docker Compose to handle dependencies.
@@ -78,8 +80,12 @@ Follow these simple steps to get a local copy up and running. This template reli
    ```
     *Note: The first launch may take some time as it downloads the model weights.*
 
+3. Copy ```.env.example``` to ```.env``` . For customization see the next section: 
+    ```sh
+    cp .env.example .env
+    ```
 
-3. **Enjoy the Demo:** Open your browser and navigate to http://localhost:7860
+4. **Enjoy the Demo:** Open your browser and navigate to http://localhost:7860. You can use examples from ```examples/``` folder.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -94,7 +100,12 @@ The application is fully configurable via the ```scripts/config.yaml``` file. Yo
 ```yaml
 server:
   host: "0.0.0.0"  # Listen on all interfaces (required for Docker)
-  port: 7860       # The port exposed to your host machine
+```
+
+The application port can be specified in the ```.env``` file:
+
+```
+APP_PORT=7860
 ```
 
 ### Model Settings
@@ -104,6 +115,8 @@ model:
   # or HuggingFaceTB/SmolVLM2-500M-Video-Instruct
   device: "auto"    # "cuda" for GPU or "cpu"
 ```
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -1,0 +1,22 @@
+services:
+  app:
+    build: .
+    container_name: ml_app
+    command: ["python", "scripts/app.py"]
+    restart: unless-stopped
+    ports:
+      - "7860:7860"
+    environment:
+      - HF_HOME=/data
+      - NVIDIA_ visible_DEVICES=all
+      - PORT=7860
+    volumes:
+      - ./.huggingface_cache:/data 
+      - .:/app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
